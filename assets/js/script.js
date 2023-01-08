@@ -9,24 +9,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
             }
-        })
+        });
     }
 
     runGame("addition");
-})
+});
    
 /**
  *  the main game loop , called when the script is first loaded
  */
 function runGame(gameType){
-    let num1 = Math.floor(Math.random() *25 ) +1;
-    let num2 = Math.floor(Math.random() *25 ) +1;
+    let num1 = Math.floor(Math.random() *25) +1;
+    let num2 = Math.floor(Math.random() *25) +1;
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
-        throw `Unknown game type: ${gameType}.Aborting!`;
+        throw `Unknown game type: ${gameType}. Aborting!`;
     }
 }
 /**
@@ -41,11 +41,14 @@ function checkAnswer(){
 
         if(isCorrect) {
             alert("You got it right!");
+            incrementScore();
         } else {
             alert(`Sorry, you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
-        }
+            incrementWrongAnswer();
+        
     }
     runGame(calculatedAnswer[1]);
+}
 
 /**
  * Gets the operands (the numbers) and the operator(plus, minus etc)
@@ -66,11 +69,13 @@ function calculateCorrectAnswer(){
 }
 
 function incrementScore(){
-
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 }
 
 function incrementWrongAnswer(){
-
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2){
